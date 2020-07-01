@@ -31,7 +31,7 @@ class App extends Component {
     return (
       
     <div className="App">
-      
+      <h1>Personal Directory</h1>
       <SearchBox
         placeholder='Search Person'
         handleChange={e => {this.setState({ searchField: e.target.value}, () => 
