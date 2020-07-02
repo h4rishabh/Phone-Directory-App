@@ -9,24 +9,28 @@ class App extends Component {
     super();
 
     this.state = {
-      monsters: [],
-      searchField: ''
+      persons: [],
+      searchFieldByName: '',
+      searchFieldByPhone: ''
     };
   }
 
   componentDidMount(){
     fetch('https://jsonplaceholder.typicode.com/users')
     .then(response => response.json())
-    .then(users => this.setState({monsters: users}))
+    .then(users => this.setState({persons: users}))
   }
 
   render(){
 
-    const { monsters, searchField } = this.state;
+    const { persons, searchFieldByName , searchFieldByPhone} = this.state;
 
-    const filteredMonsters = monsters.filter(monsters => 
-        monsters.name.toLowerCase().includes(searchField.toLowerCase())
+    const filteredpersons = persons.filter(persons => (
+        persons.name.toLowerCase().includes(searchFieldByName.toLowerCase()) &&
+        (persons.phone.replace(/-/g,'').includes(searchFieldByPhone)))
         ); 
+
+    
 
     return (
       
@@ -34,11 +38,18 @@ class App extends Component {
       <h1>Personal Directory</h1>
       <SearchBox
         placeholder='Search Person'
-        handleChange={e => {this.setState({ searchField: e.target.value}, () => 
+        handleChange={e => {this.setState({ searchFieldByName: e.target.value}, () => 
           console.log(this.state));          
         }}
       />
-        <CardList monsters={filteredMonsters}/>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <SearchBox
+        placeholder="Search by Phone"
+        handleChange={e => {this.setState({ searchFieldByPhone: e.target.value}, () => 
+          console.log(this.state));          
+        }}
+      />
+        <CardList persons={filteredpersons}/>
     </div>
     )
   }

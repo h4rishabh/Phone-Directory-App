@@ -6,8 +6,8 @@ import './card-lists.sytles.css';
 
 export const CardList = props => (
     <div className='card-list'>
-        {props.monsters.map(monster => (
-            <Card key={monster.id} monster={monster}/>
+        {props.persons.map(person => (
+            <Card key={person.id} person={person}/>
         ))}
     </div>
 );
